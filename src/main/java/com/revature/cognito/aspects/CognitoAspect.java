@@ -45,8 +45,9 @@ public class CognitoAspect {
 		Logger log = Logger.getRootLogger();
 		List<String> currentUsersRoles = cUtil.getRequesterRoles();
 
-		// if no roles are specified in the annotation give permission to all
-		if (ca.roles().length == 0) {
+		// bypass security if stage is dev
+		if (stage.equals("dev")) {
+			log.info("\n Authorization 401 bypassed by Dev Route");
 			return pjp.proceed();
 		}
 
@@ -64,12 +65,11 @@ public class CognitoAspect {
 			return pjp.proceed();
 		}
 
-		// bypass security if stage is dev
-		if (stage.equals("dev")) {
-			log.info("\n Authorization 401 bypassed by Dev Route");
+		// if no roles are specified in the annotation give permission to all authenticated users
+		if (ca.roles().length == 0) {
 			return pjp.proceed();
 		}
-
+		
 		// check to see if the user has one of the allowed roles
 		for (String allowedRole : ca.roles()) {
 			if (currentUsersRoles.contains(allowedRole)) {

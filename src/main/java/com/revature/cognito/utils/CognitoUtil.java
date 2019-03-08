@@ -27,6 +27,10 @@ public class CognitoUtil {
 	@Autowired
 	private CognitoClient cognitoClient;
 
+	/**
+	 * 
+	 * @return List of roles user has or null if the user is not authenticated
+	 */
 	public List<String> getRequesterRoles() {
 		String cognitoToken = getCurrentUserToken();
 		
