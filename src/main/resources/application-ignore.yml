@@ -1,0 +1,13 @@
+logging:
+  level:
+    org:
+      hibernate: INFO
+      springframework:
+        web: DEBUG
+    root: ALL
+    
+cognito:
+  url: ${COGNITO_URL}
+  key: ${COGNITO_KEY}
+
+    
