@@ -3,6 +3,7 @@ package com.revature.cognito.utils;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.inject.Provider;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
@@ -27,26 +28,43 @@ public class CognitoUtil {
 	@Autowired
 	private CognitoClient cognitoClient;
 
+	@Autowired
+	private Provider<CognitoTokenClaims> claimsProvider;
+
 	/**
 	 * 
 	 * @return List of roles user has or null if the user is not authenticated
 	 */
 	public List<String> getRequesterRoles() {
+		CognitoTokenClaims claims = getRequesterClaims();
+		if (claims == null) {
+			return null;
+		}
+
+		return Arrays.asList(claims.getGroups().split(","));
+	}
+
+	public CognitoTokenClaims getRequesterClaims() {
 		String cognitoToken = getCurrentUserToken();
-		
+
 		System.out.println(cognitoToken);
 		if (cognitoToken == null) {
 			return null;
 		}
-
-		CognitoTokenClaims claims = cognitoClient.authenticateToken(cognitoToken);
-
-		return Arrays.asList(claims.getGroups().split(","));
+//		CognitoTokenClaims claims = new CognitoTokenClaims();
+		CognitoTokenClaims claims = claimsProvider.get();
+		if (claims.getEmail() == null) {
+			CognitoTokenClaims retreivedClaims = cognitoClient.authenticateToken(cognitoToken);
+			System.out.println("setting value for retreived Claims" + retreivedClaims);
+			claims.setEmail(retreivedClaims.getEmail());
+			claims.setGroups(retreivedClaims.getGroups());
+		}
+		return claims;
 	}
-	
+
 	public String getCurrentUserToken() {
 		HttpServletRequest req = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-		
+
 		return req.getHeader(HttpHeaders.AUTHORIZATION);
 	}
 

@@ -1,7 +1,13 @@
 package com.revature.cognito.dtos;
 
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.RequestScope;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@Component
+@RequestScope
 public class CognitoTokenClaims {
 	@JsonProperty("cognito:groups")
 	private String groups;
