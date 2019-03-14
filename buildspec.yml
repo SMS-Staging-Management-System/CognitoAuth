@@ -6,5 +6,5 @@ phases:
       - mvn -Dmaven.test.skip=true clean package
 artifacts:
   files:
-    - '**/*'
+    - '*.jar'
   base-directory: 'target'
