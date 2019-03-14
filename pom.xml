@@ -5,7 +5,7 @@
 
 	<groupId>com.revature</groupId>
 	<artifactId>CognitoAuth</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<packaging>jar</packaging>
 
 	<name>CognitoAuth</name>
@@ -86,14 +86,14 @@
 		</dependencies>
 	</dependencyManagement>
 
-	<build>
+	<!-- <build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
-	</build>
+	</build> -->
 
 	<repositories>
 		<repository>
