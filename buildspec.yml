@@ -3,10 +3,8 @@ version: 0.2
 phases:
   post_build:
     commands:
-      - mvn -Dmaven.test.skip=true clean package
-      - cp pom.xml build/
-      - cp target/*.jar build/
+      - mvn deploy
 artifacts:
   files:
     - '*'
-  base-directory: 'build'
+  base-directory: 'target'
