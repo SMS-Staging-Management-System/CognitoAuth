@@ -4,7 +4,9 @@ phases:
   post_build:
     commands:
       - mvn -Dmaven.test.skip=true clean package
+      - cp pom.xml build/
+      - cp target/*.jar build/
 artifacts:
   files:
-    - '*.jar'
-  base-directory: 'target'
+    - '*'
+  base-directory: 'build'
