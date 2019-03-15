@@ -94,30 +94,35 @@
 		</dependencies>
 	</dependencyManagement>
 
+	<!-- <build> <plugins> <plugin> <groupId>org.apache.maven.plugins</groupId> 
+		<artifactId>maven-jar-plugin</artifactId> </plugin> </plugins> </build> -->
+
 	<build>
-		<!-- <plugins> <plugin> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-maven-plugin</artifactId> 
-			</plugin> </plugins> -->
-		<plugins>
-			<!-- <plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<goals>
-							<goal>repackage</goal>
-						</goals>
-						<configuration>
-							<classifier>exec</classifier>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin> -->
-			<plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-jar-plugin</artifactId>
-</plugin>
-		</plugins>
+		<!-- <extensions> <extension> <groupId>com.gkatzioura.maven.cloud</groupId> 
+			<artifactId>s3-storage-wagon</artifactId> <version>1.0</version> </extension> 
+			</extensions> -->
+		<extensions>
+			<extension>
+				<groupId>org.springframework.build</groupId>
+				<artifactId>aws-maven</artifactId>
+				<version>5.0.0.RELEASE</version>
+			</extension>
+		</extensions>
 	</build>
+
+
+	<distributionManagement>
+		<repository>
+			<id>aws-release</id>
+			<name>AWS Release Repository</name>
+			<url>https://s3.amazonaws.com/sms-cognito-auth/release</url>
+		</repository>
+		<snapshotRepository>
+			<id>aws-snapshot</id>
+			<name>AWS Snapshot Repository</name>
+			<url>https://s3.amazonaws.com/sms-cognito-auth/snapshot</url>
+		</snapshotRepository>
+	</distributionManagement>
 
 	<repositories>
 		<repository>
@@ -127,6 +132,10 @@
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
+		</repository>
+		<repository>
+			<id>my-repo-bucket-release</id>
+			<url>https://s3.amazonaws.com/sms-cognito-auth/release</url>
 		</repository>
 	</repositories>
 
