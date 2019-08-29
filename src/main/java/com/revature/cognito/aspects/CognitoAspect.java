@@ -23,7 +23,7 @@ import com.revature.cognito.utils.CognitoUtil;
 @Component
 public class CognitoAspect {
 
-	@Value("${spring.profiles}")
+	@Value("${spring.profiles.active}")
 	private String stage;
 
 	@Autowired

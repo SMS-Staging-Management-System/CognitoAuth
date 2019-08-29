@@ -20,9 +20,6 @@ import com.revature.cognito.intercomm.CognitoClient;
 @Component
 public class CognitoUtil {
 
-	@Value("${spring.profiles}")
-	private String stage;
-
 	private Logger logger = Logger.getRootLogger();
 
 	@Autowired
